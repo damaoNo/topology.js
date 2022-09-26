@@ -2479,7 +2479,9 @@ export class Canvas {
 
             if (
               anchor.twoWay === TwoWay.DisableConnected ||
-              anchor.twoWay === TwoWay.Disable
+              anchor.twoWay === TwoWay.Disable ||
+              this.store.activeAnchor?.twoWay === TwoWay.DisableConnectTo ||
+              this.store.activeAnchor?.twoWay === TwoWay.Disable
             ) {
               continue;
             }
@@ -2805,7 +2807,7 @@ export class Canvas {
                 if (pen[key] !== unPen[key]) {
                   this.parent.setValue(
                     { id: pen.id, [key]: pen[key] },
-                    { render: true }
+                    { render: true, doEvent: false }
                   );
                 }
               });
