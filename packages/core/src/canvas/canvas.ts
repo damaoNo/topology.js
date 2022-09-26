@@ -2801,7 +2801,7 @@ export class Canvas {
             const rect = this.getPenRect(pen, action.origin, action.scale);
             this.setPenRect(pen, rect, false);
             this.updateLines(pen, true);
-            if (pen.name === 'combine') {
+            if (pen.calculative.canvas.parent.isCombine(pen)) {
               let unPen: Pen = unPens.find((item) => item.id === pen.id);
               inheritanceProps.forEach((key) => {
                 if (pen[key] !== unPen[key]) {
