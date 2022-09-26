@@ -1415,6 +1415,7 @@ export function connectLine(
     !anchor ||
     !line ||
     !lineAnchor ||
+    anchor.twoWay === TwoWay.DisableConnected ||
     anchor.twoWay === TwoWay.Disable
   ) {
     return;
@@ -1843,8 +1844,8 @@ export function setHover(pen: Pen, hover = true) {
     pen.children.forEach((id) => {
       // 子节点没有自己的独立hover，继承父节点hover
       if (
-        store.pens[id]?.hoverColor == null &&
-        store.pens[id]?.hoverBackground == null
+        store.pens[id]?.hoverColor == undefined &&
+        store.pens[id]?.hoverBackground == undefined
       ) {
         setHover(store.pens[id], hover);
       }
