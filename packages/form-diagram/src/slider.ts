@@ -6,6 +6,7 @@ export function slider(ctx: CanvasRenderingContext2D, pen: formPen) {
   if (!pen.onAdd) {
     pen.onAdd = initRect;
     pen.onResize = initRect;
+    pen.onMove = initRect;
     pen.onMouseMove = mouseMove;
     pen.onMouseDown = mouseDown;
     pen.onValue = onValue;
