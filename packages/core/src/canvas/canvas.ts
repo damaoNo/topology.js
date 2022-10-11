@@ -2581,11 +2581,11 @@ export class Canvas {
         const connectAnchor = connectPen.calculative.worldAnchors.find(
           (item) => item.id === anchor.anchorId
         );
-        anchor = connectAnchor;
+        connectAnchor && (anchor = connectAnchor);
       }
     }
 
-    if (anchor.twoWay === TwoWay.Disable) {
+    if (anchor.twoWay === TwoWay.Disable && pen.name !== 'line') {
       return HoverType.None;
     }
     if (this.drawingLine) {
@@ -4102,7 +4102,6 @@ export class Canvas {
         offsetY = this.store.hoverAnchor.y - this.store.activeAnchor.y;
         translatePoint(this.store.activeAnchor, offsetX, offsetY);
 
-        // this.store.activeAnchor.connectTo = this.store.hover.id;
         to.prev = undefined;
         // 重新自动计算连线
         if (line.lineName !== 'polyline') {
