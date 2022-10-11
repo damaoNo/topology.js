@@ -4745,7 +4745,7 @@ export class Canvas {
     return 'topology-clipboard';
   }
 
-  copy(pens?: Pen[]) {
+  async copy(pens?: Pen[]) {
     const page = s8();
     // 得到当前活动层的，包括子节点
     const { origin, scale } = this.store.data;
@@ -4763,7 +4763,11 @@ export class Canvas {
     };
 
     if (navigator.clipboard) {
-      navigator.clipboard.writeText(JSON.stringify(clipboard));
+      try {
+        await navigator.clipboard.writeText(JSON.stringify(clipboard));
+      } catch {
+        localStorage.setItem(this.clipboardName, JSON.stringify(clipboard));
+      }
     } else {
       localStorage.setItem(this.clipboardName, JSON.stringify(clipboard));
     }
@@ -4779,7 +4783,11 @@ export class Canvas {
     let clipboard: TopologyClipboard;
 
     if (navigator.clipboard) {
-      clipboardText = await navigator.clipboard?.readText();
+      try {
+        clipboardText = await navigator.clipboard?.readText();
+      } catch {
+        clipboardText = localStorage.getItem(this.clipboardName);
+      }
     } else {
       clipboardText = localStorage.getItem(this.clipboardName);
     }
