@@ -2559,7 +2559,7 @@ export class Canvas {
     }
   };
 
-  inAnchor(pt: Point, pen: Pen, anchor: Point) {
+  inAnchor(pt: Point, pen: Pen, anchor: Point): HoverType {
     this.store.hoverAnchor = undefined;
     this.movingAnchor = undefined;
     if (!anchor || anchor.locked > LockState.DisableEdit) {
@@ -2593,7 +2593,7 @@ export class Canvas {
         (item) => item.id === anchor.anchorId
       );
       if (_anchor && _anchor.twoWay) {
-        return HotkeyType.None;
+        return HoverType.None;
       }
     }
     if (this.drawingLine) {
